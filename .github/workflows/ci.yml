@@ -3,15 +3,15 @@ name: CI - Lint & Build
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [ ${{ vars.DEFAULT_BRANCH || 'main' }} ]
 
 jobs:
   ci:
-    uses: CESActions/testdeployment/.github/workflows/reusable-apigee-ci.yml@main
+    uses: CESActions/testdeployment/.github/workflows/reusable-apigee-ci.yml@${{ vars.TESTDEPLOYMENT_REF || 'main' }}
     with:
-      apigee_org: studied-radar-485917
-      gcp_project_id: studied-radar-485917
-      gcp_project_number: "65933607877"
-      gcp_wif_provider: projects/65933607877/locations/global/workloadIdentityPools/gh-pool/providers/github
-      gcp_service_account: gh-actions-apigee@studied-radar-485917.iam.gserviceaccount.com
-      proxy_dir: ./apiproxy
+      apigee_org: ${{ vars.APIGEE_ORG }}
+      gcp_project_id: ${{ vars.GCP_PROJECT_ID }}
+      gcp_project_number: ${{ vars.GCP_PROJECT_NUMBER }}
+      gcp_wif_provider: ${{ vars.GCP_WIF_PROVIDER }}
+      gcp_service_account: ${{ vars.GCP_SA_EMAIL }}
+      proxy_dir: ${{ vars.APIGEE_PROXY_DIR || './apiproxy' }}
