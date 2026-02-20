@@ -1,0 +1,17 @@
+name: CI - Lint & Build
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  ci:
+    uses: CESActions/testdeployment/.github/workflows/reusable-apigee-ci.yml@main
+    with:
+      apigee_org: studied-radar-485917
+      gcp_project_id: studied-radar-485917
+      gcp_project_number: "65933607877"
+      gcp_wif_provider: projects/65933607877/locations/global/workloadIdentityPools/gh-pool/providers/github
+      gcp_service_account: gh-actions-apigee@studied-radar-485917.iam.gserviceaccount.com
+      proxy_dir: ./apiproxy
