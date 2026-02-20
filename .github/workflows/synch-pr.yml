@@ -1,0 +1,19 @@
+name: Sync from Apigee
+
+on:
+  schedule:
+    - cron: "15 3 * * *"   # nightly 03:15 UTC
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    uses: CESActions/testdeployment/.github/workflows/reusable-apigee-sync-pr.yml@main
+    with:
+      apigee_org: studied-radar-485917
+      gcp_project_id: studied-radar-485917
+      gcp_project_number: "65933607877"
+      gcp_wif_provider: projects/65933607877/locations/global/workloadIdentityPools/gh-pool/providers/github
+      gcp_service_account: gh-actions-apigee@studied-radar-485917.iam.gserviceaccount.com
+      proxy_name: helloworld             # or helloworldjava
+      proxy_dir: ./apiproxy
+      base_branch: main
